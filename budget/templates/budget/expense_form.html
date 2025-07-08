@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post">
+	{% csrf_token %}	
+	<h3>Dodaj wydatek</h3>
+    <div class="expense_form">
+    	<p> Miejse zakupu: {{ form.shop_name }}</p>
+		<p> Data zakupu: {{ form.expense_date}}</p>
+    <div/>
+    <h3>Produkty:</h3>
+	<div id="formsets-container">
+    	{{ products_formset.management_form }}
+    	{% for form in products_formset %}
+			{% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+        	<div class="product-form">
+            	<p>Kategoria: {{ form.product }} <a href= {% url 'product_create' %}?next={{ request.path }} class="btn btn-secondary" role=button> Dodaj product</a></p>
+				<p>Waga: {{ form.weight }}</p>
+				<p>Ilość: {{ form.quantity }}</p>
+				<p>Cena jednostkowa/kg: {{ form.price }}</p>
+        	</div>
+    	{% endfor %}
+	</div>
+	<input type="hidden" name="next" value="{{ request.GET.next }}">
+    <button class="btn btn-secondary" type="button" id="add-form">Dodaj pozycję</button>
+    <button class="btn btn-secondary" type="submit">Zapisz paragon</button>
+	<a href={% url 'expense_list' %} class="btn btn-primary" role="button">Anuluj</a>
+
+</form>
+{% endblock content %}
+{% block script %}
+<script>
+document.getElementById('add-form').addEventListener('click', function() {
+    const forms = document.getElementsByClassName('product-form');
+    const totalForms = document.querySelector('#id_products-TOTAL_FORMS');
+	const formCount = parseInt(totalForms.value);
+
+    // Klonuj ostatni formularz
+    const newForm = forms[forms.length-1].cloneNode(true);
+   
+    // Aktualizuj ID i nazwy pól
+    newForm.innerHTML = newForm.innerHTML.replace(/products-(\d+)/g, `products-${formCount}`);
+    
+     // Wyczyść wartości
+    newForm.querySelectorAll('input, select').forEach(field => {
+        field.value = '';
+    });
+ 
+  
+    // Dodaj nowy formularz do kontenera
+    document.getElementById('formsets-container').appendChild(newForm);
+    
+    // Zaktualizuj licznik formularzy
+    totalForms.value = formCount + 1;
+});
+</script>
+{% endblock script %} 

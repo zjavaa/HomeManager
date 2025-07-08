@@ -1,0 +1,4 @@
+Django==5.1.7
+ipython==9.0.2
+numpy==2.2.4
+pillow==11.1.0

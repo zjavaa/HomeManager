@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post">
+	{% csrf_token %}	
+	<h3>Dodaj przychód</h3>
+    <div class="income_form">
+		{{ form.as_p }}
+    <div/>
+   	<input type="hidden" name="next" value="{{ request.GET.next }}">
+    <button class="btn btn-secondary" type="submit">Zapisz przychód</button>
+	<a href={% url 'income_list' %} class="btn btn-primary" role="button">Anuluj</a>
+
+</form>
+{% endblock content %}
+

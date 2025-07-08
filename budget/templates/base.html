@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pl" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	{% load static %}
+	<link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" >
+</head>
+
+<body class="d-flex flex-column h-100">
+
+    <!-- NAWIGACJA (NAVBAR) -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown">
+                            <a class=" nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Finanse</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href={% url 'budget' %}>Dashboard</a></li>
+								<li><a class="dropdown-item" href={% url 'expense_list' %}> Wydatki</a></li>
+								<li><a class="dropdown-item" href={% url 'income_list' %}> Przychody </a></li>
+							</ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Kalendarz</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Firma</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content py-4">
+        <div class="container">
+            {% block content %}{% endblock content %}
+			
+			{% block script %}
+    			<script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+			{% endblock script %}
+        </div>
+    </main>
+</body>
+</html>

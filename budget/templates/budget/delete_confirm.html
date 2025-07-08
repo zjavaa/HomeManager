@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post">{% csrf_token %}
+	<p> Jesteś pewien że chcesz usunąć "{{ object }}" ?</p>
+		<button class = "btn btn-danger" type="submit"> Tak </button> 
+		<a href={% url 'expense_list' %} class="btn btn-secondary" role="button">Anuluj</a>
+</form>
+{% endblock content %}

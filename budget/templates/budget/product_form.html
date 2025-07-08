@@ -1,0 +1,7 @@
+<form method="post">
+    <h3>Dodaj produkt</h3>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Zapisz produkt</button>
+</form>
+
